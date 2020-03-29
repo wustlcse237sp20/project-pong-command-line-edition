@@ -111,13 +111,13 @@ public class SinglePlayerVersusAI implements Screen {
     }
     public void makeBallBounceOffWalls(){
         if(ballBody.getPosition().y < 0){
-            ballBody.setLinearVelocity(ballBody.getLinearVelocity().x, -ballBody.getLinearVelocity().y);
+            ballBody.setLinearVelocity(ballBody.getLinearVelocity().x, Math.abs(ballBody.getLinearVelocity().y));
         }
-        if(ballBody.getPosition().x < 0){
-            ballBody.setLinearVelocity(-ballBody.getLinearVelocity().x, ballBody.getLinearVelocity().y);
-        }
+//        if(ballBody.getPosition().x < 0){
+//            ballBody.setLinearVelocity(-ballBody.getLinearVelocity().x, ballBody.getLinearVelocity().y);
+//        }
         if(ballSprite.getY() > 720-ballSprite.getHeight()){
-            ballBody.setLinearVelocity(ballBody.getLinearVelocity().x, -ballBody.getLinearVelocity().y);
+            ballBody.setLinearVelocity(ballBody.getLinearVelocity().x, -Math.abs(ballBody.getLinearVelocity().y));
         }
     }
     @Override
