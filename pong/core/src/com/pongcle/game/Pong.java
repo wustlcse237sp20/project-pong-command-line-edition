@@ -9,14 +9,13 @@ import com.pongcle.screens.TwoPlayer;
 
 public class Pong extends Game {
 	public SpriteBatch batch;
-	Texture img;
 
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		// this.setScreen(new SinglePlayerVersusAI(this));
-		// this.setScreen(new SinglePlayer(this)); //uncomment this and comment out the line above to test use the singleplayer screen
-		this.setScreen(new TwoPlayer(this));
+		 this.setScreen(new SinglePlayerVersusAI(this));
+		// this.setScreen(new SinglePlayer(this)); //uncomment this and comment out the line above to test and use the singleplayer screen
+//		this.setScreen(new TwoPlayer(this));
 	}
 
 	@Override

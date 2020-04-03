@@ -3,10 +3,13 @@ package com.pongcle.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
@@ -23,8 +26,17 @@ public class SinglePlayerVersusAI implements Screen {
     Sprite paddleSprite;
     Body paddleBody;
 
+    Sprite testpaddleSprite;
+    Body testpaddleBody;
+
     Sprite aiSprite;
     Body aiBody;
+
+    BitmapFont font;
+
+
+    int playerScore = 0;
+    int aiScore = 0;
 
     Box2DDebugRenderer debugRenderer;
     OrthographicCamera cam;
@@ -41,14 +53,21 @@ public class SinglePlayerVersusAI implements Screen {
         this.world = new World(new Vector2(0, 0), true);
         debugRenderer = new Box2DDebugRenderer();
         debugMatrix=new Matrix4(cam.combined);
-        debugMatrix.scale(2, 2, 1f);
+        debugMatrix.scale(3, 3, 1f);
         createBall();
         createPlayerPaddle();
         createAI();
+        font = new BitmapFont();
+        font.setColor(new Color(255,255,255,1));
+//        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/myfont.ttf"));
+
+
     }
     public void createBall(){
         ballSprite = new Sprite(new Texture("purplecircle.png"));
         ballSprite.setPosition(Gdx.graphics.getWidth() / 2 - ballSprite.getWidth() / 2, Gdx.graphics.getHeight() / 2);
+//        ballSprite.setPosition(20, 500);
+
         ballSprite.setSize(40,40);
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
@@ -56,7 +75,7 @@ public class SinglePlayerVersusAI implements Screen {
         ballBody = world.createBody(bodyDef);
         ballBody.setLinearVelocity(30, 30);
         CircleShape ballShape = new CircleShape();
-        ballShape.setRadius(20/10);
+        ballShape.setRadius(2f);
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = ballShape;
         fixtureDef.restitution = 1f;
@@ -81,6 +100,7 @@ public class SinglePlayerVersusAI implements Screen {
         Fixture fixture = paddleBody.createFixture(fixtureDef);
         paddleShape.dispose();
     }
+
     public void createAI(){
         aiSprite = new Sprite(new Texture("pinkrect.png"));
         aiSprite.setPosition(1280-50, 50);
@@ -120,19 +140,47 @@ public class SinglePlayerVersusAI implements Screen {
             ballBody.setLinearVelocity(ballBody.getLinearVelocity().x, -Math.abs(ballBody.getLinearVelocity().y));
         }
     }
+    public void checkBallBounds(){
+        if(ballSprite.getX() < -ballSprite.getWidth()){
+            aiScored();
+        }
+        if(ballSprite.getX() > Gdx.graphics.getWidth()+ballSprite.getWidth()){
+            playerScored();
+        }
+    }
+    public void aiScored(){
+        aiScore++;
+        ballBody.setTransform(50, 50, 90);
+        System.out.println("reset > ");
+    }
+    public void playerScored(){
+        playerScore++;
+        ballBody.setTransform(50, 50, 90);
+        System.out.println("reset < ");
+    }
+
+
     @Override
     public void render(float delta) {
         makeBallBounceOffWalls();
         world.step(Gdx.graphics.getDeltaTime(), 6, 2);
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        System.out.println(paddleBody.getLinearVelocity().y);
-        ballSprite.setPosition(ballBody.getPosition().x*10, ballBody.getPosition().y*10);
+        checkBallBounds();
+        ballSprite.setPosition(ballBody.getPosition().x*10-10, ballBody.getPosition().y*10+20);
         paddleSprite.setPosition(paddleBody.getPosition().x*10, paddleBody.getPosition().y*10);
+
         aiSprite.setPosition(aiBody.getPosition().x*10, aiBody.getPosition().y*10);
+
         moveAI();
         movePaddle();
+
+//        font.setScale(.2f);
+
+
         game.batch.begin();
+        font.draw(game.batch, String.valueOf(playerScore), 20,20);
+
         ballSprite.draw(game.batch);
         paddleSprite.draw(game.batch);
         aiSprite.draw(game.batch);
