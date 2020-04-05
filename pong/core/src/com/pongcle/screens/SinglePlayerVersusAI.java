@@ -350,11 +350,13 @@ public class SinglePlayerVersusAI implements Screen {
      */
     public void runTests(){
         int numPassedTests = 0;
-        int numTests = 4;
+        int numTests = 5;
         numPassedTests+=testScoresInBounds();
         numPassedTests+=testAIPaddleInBounds();
         numPassedTests+=testBallInBounds();
         numPassedTests+=testBallMovement();
+        numPassedTests+=testScreenText();
+
 
         System.out.println("Passed "+String.valueOf(numPassedTests)+"/"+String.valueOf(numTests)+" tests");
     }
@@ -398,6 +400,16 @@ public class SinglePlayerVersusAI implements Screen {
             return 0;
         }
         if(ballBody.getLinearVelocity().y == 0 && !isGameOver){
+            return 0;
+        }
+        return 1;
+    }
+    /**
+     * If centerString is not empty while game is going, test fails
+     * @return if screenText is valid
+     */
+    public int testScreenText(){
+        if(!isGameOver && !getCenterString().equals("")){
             return 0;
         }
         return 1;
