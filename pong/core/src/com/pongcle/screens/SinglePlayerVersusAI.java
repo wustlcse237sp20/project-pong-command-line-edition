@@ -274,22 +274,29 @@ public class SinglePlayerVersusAI implements Screen {
      */
     @Override
     public void render(float delta) {
-        makeBallBounceOffWalls();
         world.step(Gdx.graphics.getDeltaTime(), 6, 2);
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        checkBallBounds();
         ballSprite.setPosition(ballBody.getPosition().x*10-10, ballBody.getPosition().y*10+20);
         paddleSprite.setPosition(paddleBody.getPosition().x*10, paddleBody.getPosition().y*10);
         aiSprite.setPosition(aiBody.getPosition().x*10, aiBody.getPosition().y*10);
+        checkBallBounds();
+        makeBallBounceOffWalls();
         moveAI();
         movePaddle();
         checkScoresForWinner();
-
         if (Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
             resetGame();
         }
+        drawObjects();
+        runTests();
+//        debugRenderer.render(world, debugMatrix); UNCOMMENT TO DEBUG PHYSICS ENGINE
+    }
 
+    /**
+     * Draws items on screen
+     */
+    public void drawObjects(){
         game.batch.begin();
         playerScoreText.draw(game.batch, String.valueOf(playerScore), Gdx.graphics.getWidth()/2-100,playerScoreText.getXHeight()+10);
         aiScoreText.draw(game.batch, String.valueOf(aiScore), Gdx.graphics.getWidth()/2+100,playerScoreText.getXHeight()+10);
@@ -298,8 +305,6 @@ public class SinglePlayerVersusAI implements Screen {
         paddleSprite.draw(game.batch);
         aiSprite.draw(game.batch);
         game.batch.end();
-        runTests();
-//        debugRenderer.render(world, debugMatrix); UNCOMMENT TO DEBUG PHYSICS ENGINE
     }
 
     public void movePaddle() {
