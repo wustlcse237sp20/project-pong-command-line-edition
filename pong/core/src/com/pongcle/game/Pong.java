@@ -13,8 +13,8 @@ public class Pong extends Game {
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		 this.setScreen(new SinglePlayerVersusAI(this));
-		// this.setScreen(new SinglePlayer(this)); //uncomment this and comment out the line above to test and use the singleplayer screen
+//		 this.setScreen(new SinglePlayerVersusAI(this));
+		 this.setScreen(new SinglePlayer(this)); //uncomment this and comment out the line above to test and use the singleplayer screen
 //		this.setScreen(new TwoPlayer(this));
 	}
 
