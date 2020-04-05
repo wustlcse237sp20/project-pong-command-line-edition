@@ -144,7 +144,7 @@ public class SinglePlayerVersusAI implements Screen {
     }
 
     /**
-     * Create's the AI (right paddle)'s body and renderable sprite
+     * Create's the AI's (right paddle) body and renderable sprite
      */
     public void createAI(){
         aiSprite = new Sprite(new Texture("pinkrect.png"));
@@ -300,13 +300,17 @@ public class SinglePlayerVersusAI implements Screen {
         game.batch.begin();
         playerScoreText.draw(game.batch, String.valueOf(playerScore), Gdx.graphics.getWidth()/2-100,playerScoreText.getXHeight()+10);
         aiScoreText.draw(game.batch, String.valueOf(aiScore), Gdx.graphics.getWidth()/2+100,playerScoreText.getXHeight()+10);
-        aiScoreText.draw(game.batch, getCenterString(), Gdx.graphics.getWidth()/2-24*centerScreenString.length()/2,Gdx.graphics.getHeight()/2+38);
+        centerScreenText.draw(game.batch, getCenterString(), Gdx.graphics.getWidth()/2-24*centerScreenString.length()/2,Gdx.graphics.getHeight()/2+38);
         ballSprite.draw(game.batch);
         paddleSprite.draw(game.batch);
         aiSprite.draw(game.batch);
         game.batch.end();
     }
 
+    /**
+     * Moves the paddle UP and DOWN
+     * When the user presses the up or down arrow.
+     */
     public void movePaddle() {
         if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
             paddleBody.setLinearVelocity(0, 30);
