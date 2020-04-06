@@ -14,7 +14,7 @@ This is mini pong game written in Java. There are 3 game modes namely single pla
 ***3. Notes***
 - If that doesn't work, it's likely something to do with your Java install (JRE or JDK).
     - To determine if this is the problem, run: java -version
-    - If the java version is not java 1.8.x, or 1.7.x, please upgrade to this version and try again. 
+    - If the java version is not java 1.8.x, or 1.7.x, please upgrade to this version and try again.
     - If you are still having issued, run: 'java -version' again to ensure the correct version of java is being used.
 - If it doesn't work on Windows, and you have java installed, check your environment variables, ensure the JAVA_HOME variable is set to a jdk-1.8.x or jdk-1.9.x distribution. 
 - To develop with an IDE, LibGDX highly recommends InteliJ, I tried to use Eclipse for a couple hours and couldn't get it to import and build. I got InteliJ working using the Desktop instructions here: https://github.com/libgdx/libgdx/wiki/Gradle-and-Intellij-IDEA
@@ -42,6 +42,7 @@ This is mini pong game written in Java. There are 3 game modes namely single pla
 - As a player, I want to play a game of pong against an AI to make the game more interesting. (Complete)
 - As a player, I want to be able to play against (and beat my friends), in some head to head two player pong. (Complete)
 - As a player, I want to be able to launch any of the three gamemodes from command line. (Complete)
+
 
 ***2. Iteration 2***
 - As a player, I want to be able to customize the pong board, ball, and paddles.
