@@ -29,8 +29,14 @@ This is mini pong game written in Java. There are 3 game modes namely single pla
             1 : single player mode 
             2 : two player mode 
             3 : single player vs. AI 
+            
+## Testing
+- Since our project is a series of games, we cannot use Unit Tests.
+- This is because Unit Tests are designed to tests functions once.
+- Our tests need to continously run to ensure things are valid throughout the duration of the game where things are constantly moving around changing values. 
+- Our tests constantly run while you play the game and print out how many tests pass to the command line. 
 
-## Iteration
+## Iteration / User Stories
 ***1. Iteration 1***
 - As a bored quarantined person, I want to play a fun infinite game of pong. (Complete)
 - As a player, I want to play a game of pong against an AI to make the game more interesting. (Complete)
