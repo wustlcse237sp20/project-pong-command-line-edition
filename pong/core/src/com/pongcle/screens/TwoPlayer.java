@@ -299,6 +299,7 @@ public class TwoPlayer implements Screen {
         player1Sprite.draw(game.batch);
         player2Sprite.draw(game.batch);
         game.batch.end();
+        runTests();
     }
 
     @Override
@@ -324,5 +325,69 @@ public class TwoPlayer implements Screen {
     @Override
     public void dispose() {
         game.batch.dispose();
+    }
+
+    /**
+     * Runs all of the tests and prints out how many passed.
+     * Since our project is a game, we cannot use JUnit tests.
+     * This is because we need our tests to run 60 times a second.
+     * This is because our game is dynamic, things are constantly moving and changing.
+     */
+    public void runTests(){
+        int numPassedTests = 0;
+        int numTests = 4;
+        numPassedTests+=testScoresInBounds();
+        numPassedTests+=testBallInBounds();
+        numPassedTests+=testBallMovement();
+        numPassedTests+=testScreenText();
+
+
+        System.out.println("Passed "+String.valueOf(numPassedTests)+"/"+String.valueOf(numTests)+" tests");
+    }
+
+    /**
+     * @return If scores are in possible range, return 1. Otherwise return 0
+     */
+    public int testScoresInBounds(){
+        if(player1Score < 0 || player1Score > playUntilScore){
+            return 0;
+        }
+        if(player2Score < 0 || player2Score > playUntilScore){
+            return 0;
+        }
+        return 1;
+    }
+ 
+    /**
+     * @return If ball position is in possible range, return 1. Otherwise return 0
+     */
+    public int testBallInBounds(){
+        if(ballSprite.getY() < -ballSprite.getHeight() || ballSprite.getY() > Gdx.graphics.getHeight()+ballSprite.getHeight()){
+            return 0;
+        }
+        return 1;
+    }
+
+    /**
+     * @return If ball is not moving without the game being over, return 0, otherwise return 1.
+     */
+    public int testBallMovement(){
+        if(ballBody.getLinearVelocity().x == 0 && !isGameOver){
+            return 0;
+        }
+        if(ballBody.getLinearVelocity().y == 0 && !isGameOver){
+            return 0;
+        }
+        return 1;
+    }
+    /**
+     * If centerString is not empty while game is going, test fails
+     * @return if screenText is valid
+     */
+    public int testScreenText(){
+        if(!isGameOver && !getCenterString().equals("")){
+            return 0;
+        }
+        return 1;
     }
 }
