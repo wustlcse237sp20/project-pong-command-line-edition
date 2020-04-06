@@ -35,6 +35,8 @@ This is a pong game written in Java using the LibGDX game engine. There are 3 ga
 - Since our project is a series of games, we cannot use Unit Tests. This is because Unit Tests are designed to tests functions once.
 - Our tests need to continously run to ensure things are valid throughout the duration of the game where things are constantly moving around changing values. 
 - Our tests constantly run while you play the game and print out how many tests pass to the command line. 
+- Our DesktopLauncher doesn't have a test because it is LibGDX generated code. We didn't write it. 
+- He mentions that UI classes don't need tests, are game is basically all UI but we wrote the tests mentioned above. 
 
 ## Iteration / User Stories
 ***1. Iteration 1***
