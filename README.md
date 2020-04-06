@@ -34,7 +34,7 @@ This is mini pong game written in Java. There are 3 game modes namely single pla
 ***1. Iteration 1***
 - As a bored quarantined person, I want to play a fun infinite game of pong. (Complete)
 - As a player, I want to play a game of pong against an AI to make the game more interesting. (Complete)
-- As a player, I want to be able to play against (and beat my friends), in some head to head to player pong. (Complete)
+- As a player, I want to be able to play against (and beat my friends), in some head to head two player pong. (Complete)
 - As a player, I want to be able to launch any of the three gamemodes from command line. (Complete)
 
 ***2. Iteration 2***
