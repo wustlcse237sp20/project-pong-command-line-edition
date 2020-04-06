@@ -31,8 +31,7 @@ This is mini pong game written in Java. There are 3 game modes namely single pla
             3 : single player vs. AI 
             
 ## Testing
-- Since our project is a series of games, we cannot use Unit Tests.
-- This is because Unit Tests are designed to tests functions once.
+- Since our project is a series of games, we cannot use Unit Tests. This is because Unit Tests are designed to tests functions once.
 - Our tests need to continously run to ensure things are valid throughout the duration of the game where things are constantly moving around changing values. 
 - Our tests constantly run while you play the game and print out how many tests pass to the command line. 
 

@@ -299,7 +299,7 @@ public class SinglePlayerVersusAI implements Screen {
     public void drawObjects(){
         game.batch.begin();
         playerScoreText.draw(game.batch, String.valueOf(playerScore), Gdx.graphics.getWidth()/2-100,playerScoreText.getXHeight()+10);
-        aiScoreText.draw(game.batch, String.valueOf(aiScore), Gdx.graphics.getWidth()/2+100,playerScoreText.getXHeight()+10);
+        aiScoreText.draw(game.batch, String.valueOf(aiScore), Gdx.graphics.getWidth()/2+100,aiScoreText.getXHeight()+10);
         centerScreenText.draw(game.batch, getCenterString(), Gdx.graphics.getWidth()/2-24*centerScreenString.length()/2,Gdx.graphics.getHeight()/2+38);
         ballSprite.draw(game.batch);
         paddleSprite.draw(game.batch);
