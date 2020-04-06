@@ -1,8 +1,8 @@
 # Pong command line edition
-This is mini pong game written in Java. There are 3 game modes namely single player, single player vs AI and two players. Difficulties can be adjusted using command lines.
+This is a pong game written in Java using the LibGDX game engine. There are 3 gamemodes namely single player, single player vs AI, and two players. 
 
 ## Install
-***1. Window***
+***1. Windows***
 
 - First, open the project and install gradle. To do that, use the command: 'apt install gradle'
 - Next, run the pong.sh bash script using the command: ./pong.sh
@@ -12,12 +12,13 @@ This is mini pong game written in Java. There are 3 game modes namely single pla
 - Next, run the pong.sh bash script using the command: ./pong.sh
 
 ***3. Notes***
+- If you don't have gradle installed, still try running'./pong.sh'
 - If that doesn't work, it's likely something to do with your Java install (JRE or JDK).
     - To determine if this is the problem, run: java -version
     - If the java version is not java 1.8.x, or 1.7.x, please upgrade to this version and try again.
     - If you are still having issued, run: 'java -version' again to ensure the correct version of java is being used.
 - If it doesn't work on Windows, and you have java installed, check your environment variables, ensure the JAVA_HOME variable is set to a jdk-1.8.x or jdk-1.9.x distribution. 
-- To develop with an IDE, LibGDX highly recommends InteliJ, I tried to use Eclipse for a couple hours and couldn't get it to import and build. I got InteliJ working using the Desktop instructions here: https://github.com/libgdx/libgdx/wiki/Gradle-and-Intellij-IDEA
+
 
 ## Usage 
 - Users can change the game mode settings from the command line with the flags listed below 
