@@ -21,11 +21,11 @@ This is mini pong game written in Java. There are 3 game modes namely single pla
 
 ## Usage 
 - Users can change the game mode settings from the command line with the flags listed below 
-- The format for including flags in the command line is as follows: ./pong.sh -<flag name> <flag value>
-- For example, to run the command line pong game with two player mode on, run: ./pong.sh -m 2, where '-m' is the <flag name>, and '2' is the <flag value> to use. 
+- The format for including flags in the command line is as follows: ./pong.sh -[flag name] [flag value]
+- For example, to run the command line pong game with two player mode on, run: ./pong.sh -m 2, where '-m' is the [flag name], and '2' is the [flag value] to use. 
 - (Optional) Flags: 
-    -m <game mode> : change the current game mode
-        <game mode> options : 
+    -m [game mode] : change the current game mode
+        [game mode] options : 
             1 : single player mode 
             2 : two player mode 
             3 : single player vs. AI 
