@@ -13,17 +13,11 @@ public class Pong extends Game {
 	public SpriteBatch batch;
 
 	/**
-	 * Creates new pong game mode based on command line arguments, currently three distinct game modes 
+	 * Creates new pong game mode based on command line arguments 
 	 */
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-
-		Dictionary game_modes = new Hashtable();
-		game_modes.put("1", "Single Player");
-		game_modes.put("2", "Two Player");
-		game_modes.put("3", "Single Player VS AI");
-
 		String gameMode = getGameMode();
 
 		if(gameMode.equals("1")){
@@ -56,21 +50,26 @@ public class Pong extends Game {
 	 * If no game mode provided, single player will used as default. 
 	 */
 	public String getGameMode(){
-		String playerMode = "1";
+		Dictionary game_modes = new Hashtable();
+		game_modes.put("1", "Single Player");
+		game_modes.put("2", "Two Player");
+		game_modes.put("3", "Single Player VS AI");
+		String gameMode = "1";
 
 		try {
 			File config_file = new File("config.txt");
 			Scanner scanner = new Scanner(config_file);
 			while(scanner.hasNext()){
 				if(scanner.nextLine().equals("-m")) {
-					playerMode = scanner.nextLine();
-					System.out.println("Game mode changed to: " + game_modes.get(playerMode)); //may need some try / catch logic here if not found in dictionary
+					gameMode = scanner.nextLine();
+					System.out.println("Game mode changed to: " + game_modes.get(gameMode)); //may need some try / catch logic here if not found in dictionary
 				}
 			}
+			scanner.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 			System.out.println("The Config File was not found.. defaulting to single player");
 		}
-		return playerMode;
+		return gameMode;
 	}
 }
