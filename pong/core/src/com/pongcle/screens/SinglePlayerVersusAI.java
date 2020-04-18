@@ -54,8 +54,20 @@ public class SinglePlayerVersusAI implements Screen {
     Matrix4 debugMatrix;
     boolean isGameOver = false;
 
-    public SinglePlayerVersusAI(Pong game){
+    private int difficulty = 1;
+    private int ballVelocity = 40;
+
+    public SinglePlayerVersusAI(Pong game, int scoreToWin, int difficulty){
         this.game = game;
+        this.playUntilScore = scoreToWin;
+        setBallVelocity(40);
+        if(difficulty == 2){
+            setBallVelocity(50);
+        }
+        if(difficulty == 3){
+            setBallVelocity(60);
+        }
+        setDifficulty(difficulty);
     }
 
     public void setCenterString(String str){
@@ -64,7 +76,18 @@ public class SinglePlayerVersusAI implements Screen {
     public String getCenterString(){
         return centerScreenString;
     }
-
+    public void setDifficulty(int difficulty) {
+        this.difficulty = difficulty;
+    }
+    public int getDifficulty() {
+        return difficulty;
+    }
+    public int getBallVelocity() {
+        return ballVelocity;
+    }
+    public void setBallVelocity(int ballVelocity) {
+        this.ballVelocity = ballVelocity;
+    }
     /**
      * Default LibGDX function,
      * Creates all of the game objects: ball, paddles, text
@@ -111,7 +134,7 @@ public class SinglePlayerVersusAI implements Screen {
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         bodyDef.position.set(ballSprite.getX()/10f, ballSprite.getY()/10f);
         ballBody = world.createBody(bodyDef);
-        ballBody.setLinearVelocity(30, 30);
+        ballBody.setLinearVelocity(getBallVelocity(), getBallVelocity()/2);
         CircleShape ballShape = new CircleShape();
         ballShape.setRadius(2f);
         FixtureDef fixtureDef = new FixtureDef();
@@ -208,6 +231,10 @@ public class SinglePlayerVersusAI implements Screen {
         if(ballSprite.getX() > Gdx.graphics.getWidth()+ballSprite.getWidth()){
             playerScored();
         }
+        if(ballSprite.getY()<-ballSprite.getHeight() || ballSprite.getY()>Gdx.graphics.getHeight()+ballSprite.getHeight()){
+            ballBody.setTransform(50, (float) (4.00+Math.random()*68), 90);
+            ballBody.setLinearVelocity(-getBallVelocity(), getBallVelocity()/2);
+        }
     }
 
     /**
@@ -216,7 +243,8 @@ public class SinglePlayerVersusAI implements Screen {
      */
     public void aiScored(){
         aiScore++;
-        ballBody.setTransform(50, 50, 90);
+        ballBody.setTransform(50, (float) (4.00+Math.random()*68), 90);
+        ballBody.setLinearVelocity(-getBallVelocity(), getBallVelocity()/2);
         System.out.println("reset > ");
     }
 
@@ -226,7 +254,9 @@ public class SinglePlayerVersusAI implements Screen {
      */
     public void playerScored(){
         playerScore++;
-        ballBody.setTransform(50, 50, 90);
+        ballBody.setTransform(50, (float) (4.00+Math.random()*68), 90);
+        ballBody.setLinearVelocity(getBallVelocity(), getBallVelocity()/2);
+
     }
 
     /**
@@ -259,7 +289,7 @@ public class SinglePlayerVersusAI implements Screen {
         setCenterString("");
         aiScore = 0;
         playerScore = 0;
-        ballBody.setLinearVelocity(30, 30);
+        ballBody.setLinearVelocity(getBallVelocity(), getBallVelocity()/2);
         isGameOver = false;
     }
 
@@ -285,6 +315,7 @@ public class SinglePlayerVersusAI implements Screen {
         moveAI();
         movePaddle();
         checkScoresForWinner();
+        checkBallVelocitySlope();
         if (Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
             resetGame();
         }
@@ -313,12 +344,28 @@ public class SinglePlayerVersusAI implements Screen {
      */
     public void movePaddle() {
         if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
-            paddleBody.setLinearVelocity(0, 30);
+            paddleBody.setLinearVelocity(0, 50);
         } else if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
-            paddleBody.setLinearVelocity(0, -30);
+            paddleBody.setLinearVelocity(0, -50);
         } else {
             paddleBody.setLinearVelocity(0, 0);
         }
+    }
+
+    /**
+     * Checks the ball's slope, ensures it's not too steep
+     * If a ball has a high slope, it will take forever to get
+     * accoss the screen.
+     */
+    public void checkBallVelocitySlope(){
+        float velX = ballBody.getLinearVelocity().x;
+        float velY = ballBody.getLinearVelocity().y;
+        float slope = Math.abs(velY / velX);
+        if(slope > 0.8){
+            ballBody.setLinearVelocity((float) (velX*1.20), (float) (velY*0.80));
+        }
+
+
     }
 
     @Override
@@ -418,5 +465,7 @@ public class SinglePlayerVersusAI implements Screen {
         }
         return 1;
     }
+
+
 
 }
