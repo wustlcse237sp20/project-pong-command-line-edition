@@ -49,6 +49,7 @@ This is a pong game written in Java using the LibGDX game engine. There are 3 ga
 ***2. Iteration 2***
 - As a player, I want to be able to customize the ball and paddles using my own pictures.
 - As a player, I want to be able to set the difficulty of the AI and change the speed of the ball in all games.
+- As a player, I want want the ball to never get a very steep vertical slope because I want the ball to get across the screen quickly.
 - As a player, I want to be able to launch the game without installing anything. 
 
 ***3. Iteration 3***
