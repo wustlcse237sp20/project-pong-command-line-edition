@@ -27,7 +27,7 @@ public class Pong extends Game {
 			this.setScreen(new SinglePlayer(this));
 		}
 		else if(config.getGameMode().equals("2")){
-			this.setScreen(new TwoPlayer(this));
+			this.setScreen(new TwoPlayer(this, config.getScoreToWin(), config.getDifficulty()));
 		}
 		else if(config.getGameMode().equals("3")){
 			this.setScreen(new SinglePlayerVersusAI(this, config.getScoreToWin(), config.getDifficulty()));

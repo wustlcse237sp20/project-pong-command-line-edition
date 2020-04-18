@@ -51,8 +51,33 @@ public class TwoPlayer implements Screen {
     OrthographicCamera cam;
     Matrix4 debugMatrix;
 
-    public TwoPlayer(Pong game){
+    private int difficulty = 1;
+    private int ballVelocity = 40;
+
+    public TwoPlayer(Pong game, int scoreToWin, int difficulty){
         this.game = game;
+        this.playUntilScore = scoreToWin;
+        setBallVelocity(40);
+        if(difficulty == 2){
+            setBallVelocity(50);
+        }
+        if(difficulty == 3){
+            setBallVelocity(60);
+        }
+        setDifficulty(difficulty);
+    }
+
+    public void setDifficulty(int difficulty) {
+        this.difficulty = difficulty;
+    }
+    public int getDifficulty() {
+        return difficulty;
+    }
+    public int getBallVelocity() {
+        return ballVelocity;
+    }
+    public void setBallVelocity(int ballVelocity) {
+        this.ballVelocity = ballVelocity;
     }
 
     public void setCenterString(String str){
@@ -108,7 +133,7 @@ public class TwoPlayer implements Screen {
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         bodyDef.position.set(ballSprite.getX()/10f, ballSprite.getY()/10f);
         ballBody = world.createBody(bodyDef);
-        ballBody.setLinearVelocity(30, 30);
+        ballBody.setLinearVelocity(getBallVelocity(), getBallVelocity()/2);
         CircleShape ballShape = new CircleShape();
         ballShape.setRadius(20/10);
         FixtureDef fixtureDef = new FixtureDef();
@@ -165,10 +190,9 @@ public class TwoPlayer implements Screen {
      * Makes the ball bounce of the top and bottom of the screen (keeps ball in bounds).
      */
     public void makeBallBounceOffWalls(){
-        if(ballBody.getPosition().y < 0){
+        if(ballSprite.getY() < 0){
             ballBody.setLinearVelocity(ballBody.getLinearVelocity().x, Math.abs(ballBody.getLinearVelocity().y));
         }
-
         if(ballSprite.getY() > 720-ballSprite.getHeight()){
             ballBody.setLinearVelocity(ballBody.getLinearVelocity().x, -Math.abs(ballBody.getLinearVelocity().y));
         }
@@ -186,6 +210,10 @@ public class TwoPlayer implements Screen {
         if(ballSprite.getX() > Gdx.graphics.getWidth()+ballSprite.getWidth()){
             player1Scored();
         }
+        if(ballSprite.getY()<-ballSprite.getHeight() || ballSprite.getY()>Gdx.graphics.getHeight()+ballSprite.getHeight()){
+            ballBody.setTransform(50, (float) (4.00+Math.random()*68), 90);
+            ballBody.setLinearVelocity(-getBallVelocity(), getBallVelocity()/2);
+        }
     }
 
     /**
@@ -194,9 +222,9 @@ public class TwoPlayer implements Screen {
      */
     public void movePlayer1(){
         if (Gdx.input.isKeyPressed(Input.Keys.W)) {
-            player1Body.setLinearVelocity(0, 30);
+            player1Body.setLinearVelocity(0, 50);
         } else if (Gdx.input.isKeyPressed(Input.Keys.S)) {
-            player1Body.setLinearVelocity(0, -30);
+            player1Body.setLinearVelocity(0, -50);
         } else {
             player1Body.setLinearVelocity(0, 0);
         }
@@ -222,7 +250,8 @@ public class TwoPlayer implements Screen {
      */
     public void player1Scored(){
         player1Score++;
-        ballBody.setTransform(50, 50, 90);
+        ballBody.setTransform(50, (float) (4.00+Math.random()*68), 90);
+        ballBody.setLinearVelocity(getBallVelocity(), getBallVelocity()/2);
     }
 
     /**
@@ -231,7 +260,8 @@ public class TwoPlayer implements Screen {
      */
     public void player2Scored(){
         player2Score++;
-        ballBody.setTransform(50, 50, 90);
+        ballBody.setTransform(50, (float) (4.00+Math.random()*68), 90);
+        ballBody.setLinearVelocity(-getBallVelocity(), getBallVelocity()/2);
     }
 
     /**
@@ -264,7 +294,7 @@ public class TwoPlayer implements Screen {
         setCenterString("");
         player1Score = 0;
         player2Score = 0;
-        ballBody.setLinearVelocity(30, 30);
+        ballBody.setLinearVelocity(getBallVelocity(), getBallVelocity()/2);
         isGameOver = false;
     }
     
@@ -281,6 +311,8 @@ public class TwoPlayer implements Screen {
         movePlayer1();
         movePlayer2();
         checkScoresForWinner();
+        checkBallVelocitySlope();
+
         if (Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
             resetGame();
         }
@@ -300,6 +332,19 @@ public class TwoPlayer implements Screen {
         player2Sprite.draw(game.batch);
         game.batch.end();
         runTests();
+    }
+    /**
+     * Checks the ball's slope, ensures it's not too steep
+     * If a ball has a high slope, it will take forever to get
+     * accoss the screen.
+     */
+    public void checkBallVelocitySlope(){
+        float velX = ballBody.getLinearVelocity().x;
+        float velY = ballBody.getLinearVelocity().y;
+        float slope = Math.abs(velY / velX);
+        if(slope > 0.8){
+            ballBody.setLinearVelocity((float) (velX*1.20), (float) (velY*0.80));
+        }
     }
 
     @Override

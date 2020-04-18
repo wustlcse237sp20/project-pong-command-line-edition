@@ -364,8 +364,6 @@ public class SinglePlayerVersusAI implements Screen {
         if(slope > 0.8){
             ballBody.setLinearVelocity((float) (velX*1.20), (float) (velY*0.80));
         }
-
-
     }
 
     @Override
