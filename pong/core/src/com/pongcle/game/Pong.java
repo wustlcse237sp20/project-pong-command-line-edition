@@ -24,7 +24,7 @@ public class Pong extends Game {
 		Config config = getConfigFile();
 
 		if(config.getGameMode().equals("1")){
-			this.setScreen(new SinglePlayer(this));
+			this.setScreen(new SinglePlayer(this, config.getDifficulty()));
 		}
 		else if(config.getGameMode().equals("2")){
 			this.setScreen(new TwoPlayer(this));
