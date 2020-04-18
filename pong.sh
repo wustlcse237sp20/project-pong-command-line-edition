@@ -13,11 +13,13 @@ fi
 #loop through argument flags and add to config file, if any 
 for var in "$@"
 do 	
-	echo "$var" >> pong/core/assets/config.txt
+	echo "$var" >> pong/desktop/build/libs/config.txt
 done
 
 
 #begin the pong game with user flag settings 
-cd pong
-gradle wrapper
-./gradlew desktop:run
+cd pong/desktop/build/libs
+
+java -jar desktop-1.0.jar
+#gradle wrapper
+#./gradlew desktop:run
