@@ -52,6 +52,7 @@ This is a pong game written in Java using the LibGDX game engine. There are 3 ga
 - As a player, I want want the ball to never get a very steep vertical slope because I want the ball to get across the screen quickly. (Complete)
 - As a player, I want to be able to launch the game without installing anything. (Complete) 
 - As a player, I want a useful help message on the open game script. (Complete)
+- As a player, I want to be able to customize how long the game will last. (Complete)
 - As a developer, I want to run JUnit tests on the config to ensure it works properly. (Complete)
 
 ***3. Iteration 3***
