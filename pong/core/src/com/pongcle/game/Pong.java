@@ -24,13 +24,13 @@ public class Pong extends Game {
 		Config config = new Config();
 
 		if(config.getGameMode().equals("1")){
-			this.setScreen(new SinglePlayer(this, config.getDifficulty()));
+			this.setScreen(new SinglePlayer(this, config.getDifficulty(), config.getBallRadius(), config.getPaddleWidth()));
 		}
 		else if(config.getGameMode().equals("2")){
-			this.setScreen(new TwoPlayer(this, config.getScoreToWin(), config.getDifficulty()));
+			this.setScreen(new TwoPlayer(this, config.getScoreToWin(), config.getDifficulty(), config.getBallRadius(), config.getPaddleWidth()));
 		}
 		else if(config.getGameMode().equals("3")){
-			this.setScreen(new SinglePlayerVersusAI(this, config.getScoreToWin(), config.getDifficulty()));
+			this.setScreen(new SinglePlayerVersusAI(this, config.getScoreToWin(), config.getDifficulty(), config.getBallRadius(), config.getPaddleWidth()));
 		}else {
 			System.out.println("given player mode is not valid => Usage: ./pong -m <game mode> where <game mode> is one of these options: (1=single player, 2=two player, 3=player vs AI)");
 		}
