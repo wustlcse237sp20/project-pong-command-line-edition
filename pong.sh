@@ -22,6 +22,8 @@ do
 		echo "... (Optional) Flags:"
 		echo "..... -m [game mode] : change the current game mode [game mode] options : 1 : single player mode 2 : two player mode 3 : single player vs. AI"
 		echo "..... -h : display usage message & helpful info "
+		echo "..... -s [winning score]: change the current score to win the game. Default is (3)"
+		echo "..... -d [range(1,3] : set the games difficulty (velocity of the ball, 1=slow, 2=med, 3=fast)"
 	else
 		echo "$var" >> pong/desktop/build/libs/config.txt
 	fi
