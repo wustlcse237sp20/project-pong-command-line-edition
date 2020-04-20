@@ -1,10 +1,13 @@
 package com.pongcle.game;
 
+import com.badlogic.gdx.utils.TimeUtils;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Dictionary;
 import java.util.Hashtable;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 public class Config {
     private int scoreToWin = 3;
@@ -14,6 +17,7 @@ public class Config {
     private int paddleWidth = 80;
 
     Config(){
+
         readConfigFile();
     }
     public void setScoreToWin(int score){
@@ -52,6 +56,7 @@ public class Config {
      * @return 1 if file found and 0 if there was an exception (likely no file found)
      */
     public int readConfigFile(){
+
         try {
             File config_file = new File("config.txt");
             Scanner scanner = new Scanner(config_file);
