@@ -15,8 +15,12 @@ for var in "$@"
 do
 	if [ $var == "-h" ]; then
 
-		echo "PONG COMMAND LINE EDITION: (-h)"
-		echo "Usage Message:"
+		
+		echo "  "
+		echo "  "
+		echo "---------------------------------------------"
+		echo "| PONG COMMAND LINE EDITION: HELP FLAG (-h) |"
+		echo "---------------------------------------------"
 		echo ". The format for including flags in the command line is as follows: ./pong.sh -[flag name] [flag value]"
 		echo ". Users can change the game mode settings from the command line with the flags listed below:"
 		echo ". For example, to run the command line pong game with two player mode on, run: ./pong.sh -m 2, where '-m' is the [flag name], and '2' is the [flag value] to use."
@@ -27,7 +31,9 @@ do
 		echo "..... -s [winning score]: change the score that it takes to win, to any number. "
 		echo "..... -ballRadius | change the game ball radius (default is 20) "
 		echo "..... -paddleWidth | change the size of the paddle (default is 80) "
-
+		echo "  "
+		echo "  "
+		
 		sleep 10s
 		echo "Starting game in 20 seconds "
 		sleep 20s
