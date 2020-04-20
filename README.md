@@ -10,7 +10,7 @@ This is a pong game written in Java using the LibGDX game engine. There are 3 ga
 - For example, to run the command line pong game with two player mode on, run: ./pong.sh -m 2, where '-m' is the [flag name], and '2' is the [flag value] to use. 
 - **Run ./pong.sh -h For a help message that explains all of the flags.**
 
-***3. Notes***
+** Notes***
 - If that doesn't work, it's likely something to do with your Java install (JRE or JDK).
     - To determine if this is the problem, run: java -version
     - If the java version is not java 1.8.x, or 1.7.x, please upgrade to this version and try again.
