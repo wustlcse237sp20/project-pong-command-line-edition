@@ -5,8 +5,8 @@
 
 
 #check for old config file, if it exists delete so old settings are not re-used
-if test -f pong/core/assets/config.txt ; then
-	rm pong/core/assets/config.txt
+if test -f pong/desktop/build/libs/config.txt ; then
+	rm pong/desktop/build/libs/config.txt
 fi
 
 
