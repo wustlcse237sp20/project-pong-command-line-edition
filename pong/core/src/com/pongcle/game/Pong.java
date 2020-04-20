@@ -21,7 +21,7 @@ public class Pong extends Game {
 
 		batch = new SpriteBatch();
 
-		Config config = getConfigFile();
+		Config config = new Config();
 
 		if(config.getGameMode().equals("1")){
 			this.setScreen(new SinglePlayer(this, config.getDifficulty()));
@@ -46,38 +46,5 @@ public class Pong extends Game {
 		batch.dispose();
 	}
 	
-	/**
-	 * 
-	 * @return a String containing the selected game mode. 
-	 * If no game mode provided, single player will used as default. 
-	 */
-	public Config getConfigFile(){
-		Config config = new Config();
-		Dictionary game_modes = new Hashtable();
-		game_modes.put("1", "Single Player");
-		game_modes.put("2", "Two Player");
-		game_modes.put("3", "Single Player VS AI");
 
-		try {
-			File config_file = new File("config.txt");
-			Scanner scanner = new Scanner(config_file);
-			while(scanner.hasNext()){
-				String nextLine = scanner.nextLine();
-				if(nextLine.equals("-m")) {
-					config.setGameMode(scanner.nextLine());
-				}
-				if(nextLine.equals("-s")) {
-					config.setScoreToWin(Integer.valueOf(scanner.nextLine()));
-				}
-				if(nextLine.equals("-d")) {
-					config.setDifficulty(Integer.valueOf(scanner.nextLine()));
-				}
-			}
-			scanner.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-			System.out.println("The Config File was not found.. defaulting to single player");
-		}
-		return config;
-	}
 }
