@@ -37,6 +37,9 @@ public class SinglePlayer implements Screen {
     BitmapFont playerScoreText;
     BitmapFont centerScreenText;
 
+    int ballRadius = 40;
+    int paddleWidth = 80;
+
     private String centerScreenString = "";
 
     int playerScore = 0;
@@ -49,7 +52,7 @@ public class SinglePlayer implements Screen {
     private int difficulty = 1;
     private int ballVelocity = 40;
 
-    public SinglePlayer(Pong game, int difficulty){
+    public SinglePlayer(Pong game, int difficulty, int ballRadius, int paddleWidth){
         this.game = game;
         setBallVelocity(40);
         if(difficulty == 2){
@@ -59,6 +62,8 @@ public class SinglePlayer implements Screen {
             setBallVelocity(60);
         }
         setDifficulty(difficulty);
+        setBallRadius(ballRadius);
+        setPaddleWidth(paddleWidth);
     }
 
     public void setCenterString(String str){
@@ -78,6 +83,18 @@ public class SinglePlayer implements Screen {
     }
     public void setBallVelocity(int ballVelocity) {
         this.ballVelocity = ballVelocity;
+    }
+    public void setBallRadius(int rad){
+        this.ballRadius = rad;
+    }
+    public int getBallRadius(){
+        return this.ballRadius;
+    }
+    public void setPaddleWidth(int w){
+        this.paddleWidth = w;
+    }
+    public int getPaddleWidth(){
+        return this.paddleWidth;
     }
     /**
      * Default LibGDX function,
@@ -117,14 +134,14 @@ public class SinglePlayer implements Screen {
     public void createBall(){
         ballSprite = new Sprite(new Texture("purplecircle.png"));
         ballSprite.setPosition(Gdx.graphics.getWidth() / 2 - ballSprite.getWidth() / 2, Gdx.graphics.getHeight() / 2);
-        ballSprite.setSize(40,40);
+        ballSprite.setSize(this.ballRadius * 2, this.ballRadius * 2);
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         bodyDef.position.set(ballSprite.getX()/10f, ballSprite.getY()/10f);
         ballBody = world.createBody(bodyDef);
         ballBody.setLinearVelocity(getBallVelocity(), getBallVelocity()/2);
         CircleShape ballShape = new CircleShape();
-        ballShape.setRadius(2f);
+        ballShape.setRadius(this.ballRadius / 10f);
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = ballShape;
         fixtureDef.restitution = 1f;
@@ -139,10 +156,10 @@ public class SinglePlayer implements Screen {
     public void createPlayerPaddle(){
         paddleSprite = new Sprite(new Texture("bluerect.png"));
         paddleSprite.setPosition(50, 50);
-        paddleSprite.setSize(20,80);
+        paddleSprite.setSize(20, this.paddleWidth);
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.KinematicBody;
-        bodyDef.position.set(2, 8);
+        bodyDef.position.set(2, this.paddleWidth/10);
         paddleBody = world.createBody(bodyDef);
         PolygonShape paddleShape = new PolygonShape();
         paddleShape.setAsBox(paddleSprite.getWidth()/20f, paddleSprite.getHeight()/20f);
