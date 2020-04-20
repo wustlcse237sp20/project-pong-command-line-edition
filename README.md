@@ -10,7 +10,7 @@ This is a pong game written in Java using the LibGDX game engine. There are 3 ga
 - For example, to run the command line pong game with two player mode on, run: ./pong.sh -m 2, where '-m' is the [flag name], and '2' is the [flag value] to use. 
 - **Run ./pong.sh -h For a help message that explains all of the flags.**
 
-** Notes***
+*** Notes***
 - If that doesn't work, it's likely something to do with your Java install (JRE or JDK).
     - To determine if this is the problem, run: java -version
     - If the java version is not java 1.8.x, or 1.7.x, please upgrade to this version and try again.
@@ -43,5 +43,9 @@ This is a pong game written in Java using the LibGDX game engine. There are 3 ga
 - As a player, I want to be able to customize how long the game will last. (Complete)
 - As a developer, I want to run JUnit tests on the config to ensure it works properly. (Complete)
 
-***3. Iteration 3***
-TBD
+***3. Iteration 3 - Upcoming***
+- As a player, I want to play a bug free game. (Bug fixes, fix physics enginer out of sync)
+- As a player, I want to be able to customize the game more.
+- As a player, I don't want to go out of bounds on the screen with my paddle.
+- As a player, I don't want spammed about tests while I'm playing.
+- As a player, i don't want to have to download all of the src code to play the game. 
