@@ -1,2 +1,4 @@
--d
-1
+-m
+3
+ballRadius
+300

@@ -33,19 +33,31 @@ public class Config {
         return this.gameMode;
     }
     public void setDifficulty(int dif){
-        this.difficulty = dif;
+        if (dif == 1 || dif == 2 || dif == 3) {
+            this.difficulty = dif;
+        } else {
+            System.out.println("Invalid difficulty, set it to default value");
+        }
     }
     public int getDifficulty(){
         return this.difficulty;
     }
     public void setBallRadius(int rad){
-        this.ballRadius = rad;
+        if (rad >= 10 && rad <= 30) {
+            this.ballRadius = rad;
+        } else {
+            System.out.println("Invalid ball radius, set it to default value");
+        }     
     }
     public int getBallRadius(){
         return this.ballRadius;
     }
     public void setPaddleWidth(int w){
-        this.paddleWidth = w;
+        if (w >= 80 && w <= 200) {
+            this.paddleWidth = w;
+        } else {
+            System.out.println("Invalid paddle width, set it to default value");
+        }
     }
     public int getPaddleWidth(){
         return this.paddleWidth;
@@ -66,16 +78,32 @@ public class Config {
                     this.setGameMode(scanner.nextLine());
                 }
                 if(nextLine.equals("-s")) {
-                    this.setScoreToWin(Integer.valueOf(scanner.nextLine()));
+                    try {this.setScoreToWin(Integer.valueOf(scanner.nextLine()));}
+                    catch (NumberFormatException nfe) {
+                        System.out.println("Invalid winning score");
+                        System.exit(0);
+                    }
                 }
                 if(nextLine.equals("-d")) {
-                    this.setDifficulty(Integer.valueOf(scanner.nextLine()));
+                    try {this.setDifficulty(Integer.valueOf(scanner.nextLine()));}
+                    catch (NumberFormatException nfe) {
+                        System.out.println("Invalid difficulty");
+                        System.exit(0);
+                    }
                 }
                 if(nextLine.equals("-ballRadius")) {
-                    this.setBallRadius(Integer.valueOf(scanner.nextLine()));
+                    try {this.setBallRadius(Integer.valueOf(scanner.nextLine()));}
+                    catch (NumberFormatException nfe) {
+                        System.out.println("Invalid ball radius");
+                        System.exit(0);
+                    }
                 }
                 if(nextLine.equals("-paddleWidth")) {
-                    this.setPaddleWidth(Integer.valueOf(scanner.nextLine()));
+                    try {this.setPaddleWidth(Integer.valueOf(scanner.nextLine()));}
+                    catch (NumberFormatException nfe) {
+                        System.out.println("Invalid paddle width");
+                        System.exit(0);
+                    }
                 }
             }
             scanner.close();
