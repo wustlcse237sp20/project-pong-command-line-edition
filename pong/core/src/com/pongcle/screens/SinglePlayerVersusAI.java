@@ -43,8 +43,6 @@ public class SinglePlayerVersusAI implements Screen {
 
     private String centerScreenString = "";
 
-    int aiFrames = 0;
-
     int playerScore = 0;
     int aiScore = 0;
 
@@ -209,6 +207,9 @@ public class SinglePlayerVersusAI implements Screen {
 //        debugRenderer.render(world, debugMatrix); UNCOMMENT TO DEBUG PHYSICS ENGINE
     }
 
+    /**
+     * Gets called 60 times a second, updates the game objects.
+     */
     public void updateObjects(){
         ball.syncSpriteBody();
         paddle.syncSpriteBody();
