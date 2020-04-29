@@ -13,14 +13,15 @@ public class Paddle {
     float simulationScale = 10f;
     private float velocity = 50f;
 
-    Paddle(World world, int paddleWidth) {
+    Paddle(World world, int paddleWidth, float simulationScale) {
         this.world = world;
-        sprite = createSprite(paddleWidth);
+        sprite = createSprite(paddleWidth, "bluerect.png");
         body = createBody(paddleWidth);
+        this.simulationScale = simulationScale;
     }
 
-    public Sprite createSprite(int paddleWidth) {
-        Sprite sprite = new Sprite(new Texture("bluerect.png"));
+    public Sprite createSprite(int paddleWidth, String texture) {
+        Sprite sprite = new Sprite(new Texture(texture));
         sprite.setPosition(50, 50);
         sprite.setSize(20, paddleWidth);
         return sprite;
@@ -50,10 +51,10 @@ public class Paddle {
      * Moves the paddle UP and DOWN
      * When the user presses the up or down arrow.
      */
-    public void movePaddle() {
-        if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
+    public void movePaddle(int keyCodeUp, int keyCodeDown) {
+        if (Gdx.input.isKeyPressed(keyCodeUp)) {
             body.setLinearVelocity(0, velocity);
-        } else if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+        } else if (Gdx.input.isKeyPressed(keyCodeDown)) {
             body.setLinearVelocity(0, -velocity);
         } else {
             body.setLinearVelocity(0, 0);

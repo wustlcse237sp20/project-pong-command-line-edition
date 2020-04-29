@@ -85,7 +85,7 @@ public class Ball {
         }
 
     }
-    public boolean didPlayerScore(){
+    public boolean didSinglePlayerScore(){
         if(sprite.getX() > Gdx.graphics.getWidth()-sprite.getWidth()){
             body.setLinearVelocity(-Math.abs(body.getLinearVelocity().x), body.getLinearVelocity().y);
             return true;
@@ -96,16 +96,38 @@ public class Ball {
      * Checks is the ball has went off the screen,
      * if the ball went of the screen, the game is over.
      */
-    public boolean didPlayerLose(){
+    public boolean didSinglePlayerLose(){
         if(sprite.getX() < -sprite.getWidth()){
             return true;
         }
         return false;
     }
 
-    public void resetBall(){
+    public void resetBall(boolean velocityLeft){
+        int direction = 1;
+        if(velocityLeft){
+            direction = -1;
+        }
         body.setTransform(50, (float) (4.00+Math.random()*68), 90);
-        body.setLinearVelocity(velocity, velocity/2);
+        body.setLinearVelocity(direction*velocity, velocity/2);
+    }
+    /**
+     * Checks is the ball has went off the screen,
+     * if the ball went of the screen, someone scored
+     * calls a function if the ai scored or player scored.
+     */
+    public int checkForGoals(){
+
+        if(sprite.getY()<-sprite.getHeight() || sprite.getY()>Gdx.graphics.getHeight()+sprite.getHeight()){
+            resetBall(true);
+        }
+        if(sprite.getX() < -sprite.getWidth()){
+            return 1;//aiScored();
+        }
+        if(sprite.getX() > Gdx.graphics.getWidth()+sprite.getWidth()){
+            return 2;//playerScored();
+        }
+        return 0;
     }
 
 }

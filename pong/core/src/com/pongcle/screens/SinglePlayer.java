@@ -109,7 +109,7 @@ public class SinglePlayer implements Screen {
         debugMatrix=new Matrix4(cam.combined);
         debugMatrix.scale(3, 3, 1f);
         ball = new Ball(world, ballRadius, ballVelocity, simulationScale);
-        paddle = new Paddle(world, paddleWidth);
+        paddle = new Paddle(world, paddleWidth, simulationScale);
         createGameText();
     }
 
@@ -137,7 +137,7 @@ public class SinglePlayer implements Screen {
         }
         setCenterString("");
         playerScore = 0;
-        ball.resetBall();
+        ball.resetBall(false);
         isGameOver = false;
     }
 
@@ -162,15 +162,15 @@ public class SinglePlayer implements Screen {
     public void updateObjects(){
         ball.syncSpriteBody();
         paddle.syncSpriteBody();
-        if(ball.didPlayerLose()){
+        if(ball.didSinglePlayerLose()){
             isGameOver = true;
             setCenterString("Game Over!\nYou scored "+String.valueOf(playerScore)+"\nPress ENTER to Play Again!");
         }
         ball.makeBallBounceOffWalls();
-        if(ball.didPlayerScore()) {
+        if(ball.didSinglePlayerScore()) {
             playerScore++;
         }
-        paddle.movePaddle();
+        paddle.movePaddle(Input.Keys.UP, Input.Keys.DOWN);
         ball.checkBallVelocitySlope();
         if (Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
             resetGame();
