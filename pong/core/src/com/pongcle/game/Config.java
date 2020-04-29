@@ -17,7 +17,6 @@ public class Config {
     private int paddleWidth = 80;
 
     Config(){
-
         readConfigFile();
     }
     public void setScoreToWin(int score){
