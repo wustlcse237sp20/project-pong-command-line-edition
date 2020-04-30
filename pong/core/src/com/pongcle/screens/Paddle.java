@@ -22,7 +22,7 @@ public class Paddle {
 
     public Sprite createSprite(int paddleWidth, String texture) {
         Sprite sprite = new Sprite(new Texture(texture));
-        sprite.setPosition(50, 50);
+        sprite.setPosition(500, 50);
         sprite.setSize(20, paddleWidth);
         return sprite;
     }

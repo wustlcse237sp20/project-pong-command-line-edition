@@ -23,16 +23,13 @@ import com.pongcle.game.Pong;
 public class TwoPlayer implements Screen {
 
     Pong game;
+    Paddle player1Paddle;
+    Paddle2 player2Paddle;
     World world;
 
-    Sprite ballSprite;
-    Body ballBody;
+    Ball ball;
 
-    Sprite player1Sprite;
-    Body player1Body;
-
-    Sprite player2Sprite;
-    Body player2Body;
+    float simulationScale = 10f;
 
     BitmapFont player1ScoreText;
     BitmapFont player2ScoreText;
@@ -117,9 +114,9 @@ public class TwoPlayer implements Screen {
         debugRenderer = new Box2DDebugRenderer();
         debugMatrix=new Matrix4(cam.combined);
         debugMatrix.scale(2, 2, 1f);
-        createBall();
-        createPlayer1Paddle();
-        createPlayer2Paddle();
+        ball = new Ball(world, ballRadius, ballVelocity, simulationScale);
+        player1Paddle = new Paddle(world, paddleWidth, simulationScale);
+        player2Paddle = new Paddle2(world, paddleWidth, simulationScale);
         createGameText();
     }
 
@@ -139,127 +136,6 @@ public class TwoPlayer implements Screen {
         generator.dispose(); // don't forget to dispose to avoid memory leaks!
     }
 
-    /**
-     * Creates the game ball's renderable sprite and physics body.
-     */
-    public void createBall(){
-        ballSprite = new Sprite(new Texture("purplecircle.png"));
-        ballSprite.setPosition(Gdx.graphics.getWidth() / 2 - ballSprite.getWidth() / 2, Gdx.graphics.getHeight() / 2);
-        ballSprite.setSize(this.ballRadius * 2, this.ballRadius * 2);
-        BodyDef bodyDef = new BodyDef();
-        bodyDef.type = BodyDef.BodyType.DynamicBody;
-        bodyDef.position.set(ballSprite.getX()/10f, ballSprite.getY()/10f);
-        ballBody = world.createBody(bodyDef);
-        ballBody.setLinearVelocity(getBallVelocity(), getBallVelocity()/2);
-        CircleShape ballShape = new CircleShape();
-        ballShape.setRadius(this.ballRadius/10f);
-        FixtureDef fixtureDef = new FixtureDef();
-        fixtureDef.shape = ballShape;
-        fixtureDef.restitution = 1f;
-        fixtureDef.density = 1f;
-        Fixture fixture = ballBody.createFixture(fixtureDef);
-        ballShape.dispose();
-    }
-
-    /**
-     * Creates the left (player 1) paddle's body and renderable sprite.
-     */
-    public void createPlayer1Paddle(){
-        player1Sprite = new Sprite(new Texture("bluerect.png"));
-        player1Sprite.setPosition(50, 50);
-        player1Sprite.setSize(20, this.paddleWidth);
-        BodyDef bodyDef = new BodyDef();
-        bodyDef.type = BodyDef.BodyType.KinematicBody;
-        bodyDef.position.set(2, this.paddleWidth/10f);
-        player1Body = world.createBody(bodyDef);
-        PolygonShape player1Shape = new PolygonShape();
-        player1Shape.setAsBox(player1Sprite.getWidth()/20f, player1Sprite.getHeight()/20f);
-        FixtureDef fixtureDef = new FixtureDef();
-        fixtureDef.shape = player1Shape;
-        fixtureDef.density = 1f;
-        fixtureDef.restitution = 0f;
-        Fixture fixture = player1Body.createFixture(fixtureDef);
-        player1Shape.dispose();
-    }
-
-    /**
-     * Creates the right (player 2) paddle's body and renderable sprite.
-     */
-    public void createPlayer2Paddle(){
-        player2Sprite = new Sprite(new Texture("pinkrect.png"));
-        player2Sprite.setPosition(1280-50, 50);
-        player2Sprite.setSize(20, this.paddleWidth);
-        BodyDef bodyDef = new BodyDef();
-        bodyDef.type = BodyDef.BodyType.KinematicBody;
-        bodyDef.position.set(player2Sprite.getX()/10, player2Sprite.getY()/10);
-        player2Body = world.createBody(bodyDef);
-        PolygonShape player2Shape = new PolygonShape();
-        player2Shape.setAsBox(player2Sprite.getWidth()/20f, player2Sprite.getHeight()/20f);
-        FixtureDef fixtureDef = new FixtureDef();
-        fixtureDef.shape = player2Shape;
-        fixtureDef.density = 1f;
-        fixtureDef.restitution = 0f;
-        Fixture fixture = player2Body.createFixture(fixtureDef);
-        player2Shape.dispose();
-    }
-    
-    /**
-     * Makes the ball bounce of the top and bottom of the screen (keeps ball in bounds).
-     */
-    public void makeBallBounceOffWalls(){
-        if(ballSprite.getY() < 0){
-            ballBody.setLinearVelocity(ballBody.getLinearVelocity().x, Math.abs(ballBody.getLinearVelocity().y));
-        }
-        if(ballSprite.getY() > 720-ballSprite.getHeight()){
-            ballBody.setLinearVelocity(ballBody.getLinearVelocity().x, -Math.abs(ballBody.getLinearVelocity().y));
-        }
-    }
-
-    /**
-     * Checks is the ball has went off the screen,
-     * if the ball went of the screen, someone scored
-     * calls a function if the ai scored or player scored.
-     */
-    public void checkBallBounds(){
-        if(ballSprite.getX() < -ballSprite.getWidth()){
-            player2Scored();
-        }
-        if(ballSprite.getX() > Gdx.graphics.getWidth()+ballSprite.getWidth()){
-            player1Scored();
-        }
-        if(ballSprite.getY()<-ballSprite.getHeight() || ballSprite.getY()>Gdx.graphics.getHeight()+ballSprite.getHeight()){
-            ballBody.setTransform(50, (float) (4.00+Math.random()*68), 90);
-            ballBody.setLinearVelocity(-getBallVelocity(), getBallVelocity()/2);
-        }
-    }
-
-    /**
-     * Moves the paddle UP and DOWN
-     * When the user presses the W or S key.
-     */
-    public void movePlayer1(){
-        if (Gdx.input.isKeyPressed(Input.Keys.W)) {
-            player1Body.setLinearVelocity(0, 50);
-        } else if (Gdx.input.isKeyPressed(Input.Keys.S)) {
-            player1Body.setLinearVelocity(0, -50);
-        } else {
-            player1Body.setLinearVelocity(0, 0);
-        }
-    }
-
-    /**
-     * Moves the paddle UP and DOWN
-     * When the user presses the up or down arrow.
-     */
-    public void movePlayer2() {
-        if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
-            player2Body.setLinearVelocity(0, 30);
-        } else if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
-            player2Body.setLinearVelocity(0, -30);
-        } else {
-            player2Body.setLinearVelocity(0, 0);
-        }
-    }
 
     /**
      * Gets called from checkBallBounds when the AI scores a point
@@ -267,8 +143,7 @@ public class TwoPlayer implements Screen {
      */
     public void player1Scored(){
         player1Score++;
-        ballBody.setTransform(50, (float) (4.00+Math.random()*68), 90);
-        ballBody.setLinearVelocity(getBallVelocity(), getBallVelocity()/2);
+        ball.resetBall(true);
     }
 
     /**
@@ -277,8 +152,7 @@ public class TwoPlayer implements Screen {
      */
     public void player2Scored(){
         player2Score++;
-        ballBody.setTransform(50, (float) (4.00+Math.random()*68), 90);
-        ballBody.setLinearVelocity(-getBallVelocity(), getBallVelocity()/2);
+        ball.resetBall(true);
     }
 
     /**
@@ -291,12 +165,12 @@ public class TwoPlayer implements Screen {
     public void checkScoresForWinner(){
         if(player1Score == playUntilScore){
             setCenterString("Player 1 won!\nPress ENTER to play again");
-            ballBody.setLinearVelocity(0,0);
+            ball.body.setLinearVelocity(0,0);
             isGameOver = true;
         }
         if(player2Score == playUntilScore){
             setCenterString("Player 2 won!\nPress ENTER to play again");
-            ballBody.setLinearVelocity(0,0);
+            ball.body.setLinearVelocity(0,0);
             isGameOver = true;
         }
     }
@@ -311,7 +185,7 @@ public class TwoPlayer implements Screen {
         setCenterString("");
         player1Score = 0;
         player2Score = 0;
-        ballBody.setLinearVelocity(getBallVelocity(), getBallVelocity()/2);
+        ball.resetBall(true);
         isGameOver = false;
     }
     
@@ -320,20 +194,32 @@ public class TwoPlayer implements Screen {
         world.step(Gdx.graphics.getDeltaTime(), 6, 2);
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        ballSprite.setPosition(ballBody.getPosition().x*10-10, ballBody.getPosition().y*10+20);
-        player1Sprite.setPosition(player1Body.getPosition().x*10, player1Body.getPosition().y*10);
-        player2Sprite.setPosition(player2Body.getPosition().x*10, player2Body.getPosition().y*10);
-        checkBallBounds();
-        makeBallBounceOffWalls();
-        movePlayer1();
-        movePlayer2();
-        checkScoresForWinner();
-        checkBallVelocitySlope();
+        updateObjects();
+        drawObjects();
+    }
 
+    /**
+     * Gets called 60 times a second, updates the game objects.
+     */
+    public void updateObjects(){
+        ball.syncSpriteBody();
+        player1Paddle.syncSpriteBody();
+        player2Paddle.syncSpriteBody();
+        int goals = ball.checkForGoals();
+        if(goals==1){
+            player2Scored();
+        }
+        if(goals==2){
+            player1Scored();
+        }
+        ball.makeBallBounceOffWalls();
+        player1Paddle.movePaddle(Input.Keys.W, Input.Keys.S);
+        player2Paddle.movePaddle(Input.Keys.UP, Input.Keys.DOWN);
+        checkScoresForWinner();
+        ball.checkBallVelocitySlope();
         if (Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
             resetGame();
         }
-        drawObjects();
     }
 
     /**
@@ -344,24 +230,10 @@ public class TwoPlayer implements Screen {
         player1ScoreText.draw(game.batch, String.valueOf(player1Score), Gdx.graphics.getWidth()/2-100,player1ScoreText.getXHeight()+10);
         player2ScoreText.draw(game.batch, String.valueOf(player2Score), Gdx.graphics.getWidth()/2+100,player2ScoreText.getXHeight()+10);
         centerScreenText.draw(game.batch, getCenterString(), Gdx.graphics.getWidth()/2-24*centerScreenString.length()/2,Gdx.graphics.getHeight()/2+38);
-        ballSprite.draw(game.batch);
-        player1Sprite.draw(game.batch);
-        player2Sprite.draw(game.batch);
+        ball.sprite.draw(game.batch);
+        player1Paddle.sprite.draw(game.batch);
+        player2Paddle.sprite.draw(game.batch);
         game.batch.end();
-        runTests();
-    }
-    /**
-     * Checks the ball's slope, ensures it's not too steep
-     * If a ball has a high slope, it will take forever to get
-     * accoss the screen.
-     */
-    public void checkBallVelocitySlope(){
-        float velX = ballBody.getLinearVelocity().x;
-        float velY = ballBody.getLinearVelocity().y;
-        float slope = Math.abs(velY / velX);
-        if(slope > 0.8){
-            ballBody.setLinearVelocity((float) (velX*1.20), (float) (velY*0.80));
-        }
     }
 
     @Override
@@ -387,69 +259,5 @@ public class TwoPlayer implements Screen {
     @Override
     public void dispose() {
         game.batch.dispose();
-    }
-
-    /**
-     * Runs all of the tests and prints out how many passed.
-     * Since our project is a game, we cannot use JUnit tests.
-     * This is because we need our tests to run 60 times a second.
-     * This is because our game is dynamic, things are constantly moving and changing.
-     */
-    public void runTests(){
-        int numPassedTests = 0;
-        int numTests = 4;
-        numPassedTests+=testScoresInBounds();
-        numPassedTests+=testBallInBounds();
-        numPassedTests+=testBallMovement();
-        numPassedTests+=testScreenText();
-
-
-        System.out.println("Passed "+String.valueOf(numPassedTests)+"/"+String.valueOf(numTests)+" tests");
-    }
-
-    /**
-     * @return If scores are in possible range, return 1. Otherwise return 0
-     */
-    public int testScoresInBounds(){
-        if(player1Score < 0 || player1Score > playUntilScore){
-            return 0;
-        }
-        if(player2Score < 0 || player2Score > playUntilScore){
-            return 0;
-        }
-        return 1;
-    }
- 
-    /**
-     * @return If ball position is in possible range, return 1. Otherwise return 0
-     */
-    public int testBallInBounds(){
-        if(ballSprite.getY() < -ballSprite.getHeight() || ballSprite.getY() > Gdx.graphics.getHeight()+ballSprite.getHeight()){
-            return 0;
-        }
-        return 1;
-    }
-
-    /**
-     * @return If ball is not moving without the game being over, return 0, otherwise return 1.
-     */
-    public int testBallMovement(){
-        if(ballBody.getLinearVelocity().x == 0 && !isGameOver){
-            return 0;
-        }
-        if(ballBody.getLinearVelocity().y == 0 && !isGameOver){
-            return 0;
-        }
-        return 1;
-    }
-    /**
-     * If centerString is not empty while game is going, test fails
-     * @return if screenText is valid
-     */
-    public int testScreenText(){
-        if(!isGameOver && !getCenterString().equals("")){
-            return 0;
-        }
-        return 1;
     }
 }
