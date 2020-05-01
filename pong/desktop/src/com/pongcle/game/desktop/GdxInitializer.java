@@ -1,10 +1,14 @@
 package com.pongcle.game.desktop;
-//taken completely from https://badlogicgames.com/forum/viewtopic.php?f=11&t=10115#
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.pongcle.game.Pong;
 
+//taken completely from https://badlogicgames.com/forum/viewtopic.php?f=11&t=10115#
+
+/**
+ * This class creates a headless game instance, which we then use to test game objects with unit tests.
+ */
 public class GdxInitializer {
 
     /**

@@ -24,7 +24,7 @@ public class TwoPlayer implements Screen {
 
     Pong game;
     Paddle player1Paddle;
-    Paddle2 player2Paddle;
+    Paddle player2Paddle;
     World world;
 
     Ball ball;
@@ -116,7 +116,9 @@ public class TwoPlayer implements Screen {
         debugMatrix.scale(2, 2, 1f);
         ball = new Ball(world, ballRadius, ballVelocity, simulationScale);
         player1Paddle = new Paddle(world, paddleWidth, simulationScale);
-        player2Paddle = new Paddle2(world, paddleWidth, simulationScale);
+        player2Paddle = new Paddle(world, paddleWidth, simulationScale);
+        player2Paddle.body.setTransform(Gdx.graphics.getWidth()/10-5, 50, 0);
+        player2Paddle.sprite.setTexture(new Texture("pinkrect.png"));
         createGameText();
     }
 
