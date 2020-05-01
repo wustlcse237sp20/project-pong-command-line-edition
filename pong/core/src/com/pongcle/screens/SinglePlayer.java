@@ -64,8 +64,10 @@ public class SinglePlayer implements Screen {
         setBallRadius(ballRadius);
         setPaddleWidth(paddleWidth);
     }
+    public SinglePlayer(){}
 
-    public void setCenterString(String str){
+
+        public void setCenterString(String str){
         centerScreenString = str;
     }
     public String getCenterString(){

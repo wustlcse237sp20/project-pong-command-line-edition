@@ -16,7 +16,7 @@ public class Config {
     private int ballRadius = 20;
     private int paddleWidth = 80;
 
-    Config(){
+    public Config(){
         readConfigFile();
     }
     public void setScoreToWin(int score){
