@@ -70,8 +70,10 @@ public class SinglePlayerVersusAI implements Screen {
         setPaddleWidth(paddleWidth);
 
     }
+    public SinglePlayerVersusAI(){}
 
-    public void setCenterString(String str){
+
+        public void setCenterString(String str){
         centerScreenString = str;
     }
     public String getCenterString(){

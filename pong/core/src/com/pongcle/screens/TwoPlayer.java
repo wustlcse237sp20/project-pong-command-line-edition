@@ -68,6 +68,8 @@ public class TwoPlayer implements Screen {
         setBallRadius(ballRadius);
         setPaddleWidth(paddleWidth);
     }
+    public TwoPlayer(){}
+
 
     public void setDifficulty(int difficulty) {
         this.difficulty = difficulty;
