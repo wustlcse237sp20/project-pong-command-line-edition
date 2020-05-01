@@ -145,7 +145,7 @@ public class TwoPlayer implements Screen {
      */
     public void player1Scored(){
         player1Score++;
-        ball.resetBall(true);
+        ball.resetBall(false);
     }
 
     /**
