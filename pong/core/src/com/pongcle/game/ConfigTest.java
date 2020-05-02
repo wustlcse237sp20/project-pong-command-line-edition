@@ -18,12 +18,22 @@ public class ConfigTest {
         Config config = new Config();
         config.setGameMode("2");
         assertEquals("2", config.getGameMode());
+        
+        //test to ensure bad input is handled properly 
+        Config config1 = new Config();
+        config1.setGameMode("100");
+        assertEquals("2", config1.getGameMode());
     }
     @Test
     public void setDifficulty() {
         Config config = new Config();
-        config.setDifficulty(1);
-        assertEquals(1, config.getDifficulty());
+        config.setDifficulty(2);
+        assertEquals(2, config.getDifficulty());
+        
+        //test to ensure bad input is handled properly 
+        Config config1 = new Config();
+        config1.setDifficulty(100);
+        assertEquals(1, config1.getDifficulty());
     }
     @Test
     public void getScoreToWin() {
@@ -34,7 +44,7 @@ public class ConfigTest {
     @Test
     public void getGameMode() {
         Config config = new Config();
-        assertEquals("1", config.getGameMode());
+        assertEquals("2", config.getGameMode());
     }
 
     @Test
