@@ -47,9 +47,6 @@ public class TwoPlayer implements Screen {
 
     boolean isGameOver = false;
 
-    Box2DDebugRenderer debugRenderer;
-    OrthographicCamera cam;
-    Matrix4 debugMatrix;
 
     private int difficulty = 1;
     private int ballVelocity = 40;
@@ -68,8 +65,11 @@ public class TwoPlayer implements Screen {
         setBallRadius(ballRadius);
         setPaddleWidth(paddleWidth);
     }
-    public TwoPlayer(){}
 
+    /**
+     * Empty constructor for testing.
+     */
+    public TwoPlayer(){}
 
     public void setDifficulty(int difficulty) {
         this.difficulty = difficulty;
@@ -110,16 +110,11 @@ public class TwoPlayer implements Screen {
      */
     @Override
     public void show() {
-        cam = new OrthographicCamera(1280, 720);
-        cam.position.set(-200,-200,0);
         this.world = new World(new Vector2(0, 0), true);
-        debugRenderer = new Box2DDebugRenderer();
-        debugMatrix=new Matrix4(cam.combined);
-        debugMatrix.scale(2, 2, 1f);
         ball = new Ball(world, ballRadius, ballVelocity, simulationScale);
         player1Paddle = new Paddle(world, paddleWidth, simulationScale);
         player2Paddle = new Paddle(world, paddleWidth, simulationScale);
-        player2Paddle.body.setTransform(Gdx.graphics.getWidth()/10-5, 50, 0);
+        player2Paddle.body.setTransform(Gdx.graphics.getWidth()/10-2, 50, 0);
         player2Paddle.sprite.setTexture(new Texture("pinkrect.png"));
         createGameText();
     }
@@ -192,7 +187,16 @@ public class TwoPlayer implements Screen {
         ball.resetBall(true);
         isGameOver = false;
     }
-    
+
+    /**
+     * LibGDX engine function - is the game loop
+     * Gets called 60 times a second
+     * This handles everything dynamic about the game.
+     * It moves the AI, it renders everything on the screen.
+     * It updates the positioning of the objects.
+     * @param delta value that represents your FPS.
+     * You can use delta to compensate for some user's lagging.
+     */
     @Override
     public void render(float delta) {
         world.step(Gdx.graphics.getDeltaTime(), 6, 2);

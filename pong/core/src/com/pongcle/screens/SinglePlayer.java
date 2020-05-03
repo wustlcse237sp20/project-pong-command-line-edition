@@ -64,10 +64,12 @@ public class SinglePlayer implements Screen {
         setBallRadius(ballRadius);
         setPaddleWidth(paddleWidth);
     }
+    /**
+     * Empty constructor for testing.
+     */
     public SinglePlayer(){}
 
-
-        public void setCenterString(String str){
+    public void setCenterString(String str){
         centerScreenString = str;
     }
     public String getCenterString(){
@@ -129,7 +131,6 @@ public class SinglePlayer implements Screen {
         generator.dispose(); // don't forget to dispose to avoid memory leaks!
     }
 
-
     /**
      * Resets the game variables and restarts the game.
      */
@@ -161,6 +162,10 @@ public class SinglePlayer implements Screen {
         drawObjects();
 //        debugRenderer.render(world, debugMatrix); UNCOMMENT TO DEBUG PHYSICS ENGINE
     }
+
+    /**
+     * Gets called 60 times a second, updates the game objects.
+     */
     public void updateObjects(){
         ball.syncSpriteBody();
         paddle.syncSpriteBody();

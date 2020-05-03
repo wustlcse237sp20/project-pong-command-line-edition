@@ -10,9 +10,9 @@ public class AIPaddle extends Paddle {
 
     AIPaddle(World world, int paddleWidth, float simulationScale) {
         super(world, paddleWidth, simulationScale);
-        sprite = createSprite(paddleWidth, "pinkrect.png");
+        sprite = createSprite(paddleWidth, "pinkrect.png", false);
         body = createBody(paddleWidth);
-        body.setTransform(Gdx.graphics.getWidth()/10-5, 50, 0);
+        body.setTransform(Gdx.graphics.getWidth()/10-2, 50, 0);
 
     }
     int aiFrames = 0;

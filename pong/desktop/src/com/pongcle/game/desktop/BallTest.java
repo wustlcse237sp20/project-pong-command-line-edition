@@ -21,4 +21,26 @@ public class BallTest extends GdxInitializer {
         ball.sprite.setPosition(0,0);
         assertEquals(ball.sprite.getX(), 0f, 1f);
     }
+    @org.junit.Test
+    public void testResetBall() {
+        Ball ball = new Ball();
+        ball.resetBall(true);
+        assertEquals(true, (ball.body.getPosition().x>0 && ball.body.getPosition().x<128)); //128 represents width of physics simulation
+        assertEquals(true, (ball.body.getLinearVelocity().x < 0)); //since ball velocity is set left, it should be negative
+        assertEquals(true, (ball.body.getPosition().y>0 && ball.body.getPosition().y<72)); //72 represents height of physics simulation
+    }
+
+    @org.junit.Test
+    public void testCheckForGoals() {
+        Ball ball = new Ball();
+        assertEquals(0, ball.checkForGoals());
+    }
+
+    @org.junit.Test
+    public void testSyncSpriteBody() {
+        Ball ball = new Ball();
+        ball.syncSpriteBody();
+        assertEquals(ball.body.getPosition().x*10, ball.sprite.getX(), ball.ballRadius);
+    }
+
 }
