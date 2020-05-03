@@ -44,8 +44,8 @@ This is a pong game written in Java using the LibGDX game engine. There are 3 ga
 - As a developer, I want to run JUnit tests on the config to ensure it works properly. (Complete)
 
 ***3. Iteration 3 - Upcoming***
-- As a player, I want to play a bug free game. (Bug fixes, fix physics enginer out of sync)
-- As a player, I want to be able to customize the game more.
-- As a player, I don't want to go out of bounds on the screen with my paddle.
-- As a player, I don't want spammed about tests while I'm playing.
-- As a player, i don't want to have to download all of the src code to play the game. 
+- As a player, I want to play a bug free game. (fix physics engine out of sync when massive ball) (Complete)
+- As a player, I want to be warned when I enter an invalid game flag (Complete)
+- As a developer, I want to be able to unit test game objects using a headless version of the game (Complete)
+- As a player, I don't want spammed about tests while I'm playing. (Complete)
+
