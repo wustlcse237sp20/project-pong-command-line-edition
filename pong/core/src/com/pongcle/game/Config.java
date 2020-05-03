@@ -46,7 +46,7 @@ public class Config {
         return this.difficulty;
     }
     public void setBallRadius(int rad){
-        if (rad >= 10 && rad <= 30) {
+        if (rad >= 10 && rad <= 60) {
             this.ballRadius = rad;
         } else {
             System.out.println("Invalid ball radius, set it to default value");
