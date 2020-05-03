@@ -23,7 +23,11 @@ public class Config {
         this.scoreToWin = score;
     }
     public void setGameMode(String gameMode){
-        this.gameMode = gameMode;
+        if(gameMode.equals("1") || gameMode.equals("2") || gameMode.equals("3")){
+            this.gameMode = gameMode;
+        }else{
+            System.out.println("Invalid gamemode, set it to default value");
+        }
     }
     public int getScoreToWin(){
         return this.scoreToWin;
