@@ -29,29 +29,18 @@ public class SinglePlayerVersusAI implements Screen {
     AIPaddle aiPaddle;
     Paddle paddle;
     World world;
-
     Ball ball;
-
     float simulationScale = 10f;
-
     BitmapFont playerScoreText;
     BitmapFont aiScoreText;
     BitmapFont centerScreenText;
-
     int ballRadius = 40;
     int paddleWidth = 80;
-
     private String centerScreenString = "";
-
     int playerScore = 0;
     int aiScore = 0;
-
     int playUntilScore = 3;
-    Box2DDebugRenderer debugRenderer;
-    OrthographicCamera cam;
-    Matrix4 debugMatrix;
     boolean isGameOver = false;
-
     private int difficulty = 1;
     private int ballVelocity = 40;
 
@@ -68,7 +57,6 @@ public class SinglePlayerVersusAI implements Screen {
         setDifficulty(difficulty);
         setBallRadius(ballRadius);
         setPaddleWidth(paddleWidth);
-
     }
     public SinglePlayerVersusAI(){}
 
@@ -109,12 +97,7 @@ public class SinglePlayerVersusAI implements Screen {
      */
     @Override
     public void show() {
-        cam = new OrthographicCamera(1280, 720);
-        cam.position.set(-200,-200,0);
         this.world = new World(new Vector2(0, 0), true);
-        debugRenderer = new Box2DDebugRenderer();
-        debugMatrix=new Matrix4(cam.combined);
-        debugMatrix.scale(3, 3, 1f);
         ball = new Ball(world, ballRadius, ballVelocity, simulationScale);
         paddle = new Paddle(world, paddleWidth, simulationScale);
         aiPaddle = new AIPaddle(world, paddleWidth, simulationScale);
@@ -205,7 +188,6 @@ public class SinglePlayerVersusAI implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         updateObjects();
         drawObjects();
-//        debugRenderer.render(world, debugMatrix); UNCOMMENT TO DEBUG PHYSICS ENGINE
     }
 
     /**
@@ -245,27 +227,18 @@ public class SinglePlayerVersusAI implements Screen {
         game.batch.end();
     }
 
-
     @Override
     public void resize(int width, int height) {
-
     }
-
     @Override
     public void pause() {
-
     }
-
     @Override
     public void resume() {
-
     }
-
     @Override
     public void hide() {
-
     }
-
     @Override
     public void dispose() {
         game.batch.dispose();

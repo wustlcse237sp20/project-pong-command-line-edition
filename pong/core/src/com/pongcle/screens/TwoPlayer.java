@@ -26,28 +26,18 @@ public class TwoPlayer implements Screen {
     Paddle player1Paddle;
     Paddle player2Paddle;
     World world;
-
     Ball ball;
-
     float simulationScale = 10f;
-
     BitmapFont player1ScoreText;
     BitmapFont player2ScoreText;
     BitmapFont centerScreenText;
-
     int ballRadius = 40;
     int paddleWidth = 80;
-
     private String centerScreenString = "";
-
     int player1Score = 0;
     int player2Score = 0;
-
     int playUntilScore = 3;
-
     boolean isGameOver = false;
-
-
     private int difficulty = 1;
     private int ballVelocity = 40;
 

@@ -27,26 +27,15 @@ public class SinglePlayer implements Screen {
 
     Pong game;
     World world;
-
     Ball ball;
-
     Paddle paddle;
-
     BitmapFont playerScoreText;
     BitmapFont centerScreenText;
-
     int ballRadius = 40;
     int paddleWidth = 80;
-
     private String centerScreenString = "";
-
     int playerScore = 0;
-
-    Box2DDebugRenderer debugRenderer;
-    OrthographicCamera cam;
-    Matrix4 debugMatrix;
     boolean isGameOver = false;
-
     private int difficulty = 1;
     private int ballVelocity = 40;
     private float simulationScale = 10f;
@@ -106,12 +95,7 @@ public class SinglePlayer implements Screen {
      */
     @Override
     public void show() {
-        cam = new OrthographicCamera(1280, 720);
-        cam.position.set(-200,-200,0);
         this.world = new World(new Vector2(0, 0), true);
-        debugRenderer = new Box2DDebugRenderer();
-        debugMatrix=new Matrix4(cam.combined);
-        debugMatrix.scale(3, 3, 1f);
         ball = new Ball(world, ballRadius, ballVelocity, simulationScale);
         paddle = new Paddle(world, paddleWidth, simulationScale);
         createGameText();
@@ -160,7 +144,6 @@ public class SinglePlayer implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         updateObjects();
         drawObjects();
-//        debugRenderer.render(world, debugMatrix); UNCOMMENT TO DEBUG PHYSICS ENGINE
     }
 
     /**
