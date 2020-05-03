@@ -28,6 +28,12 @@ public class Ball {
         sprite = createSprite(true);
         body = createBody();
     }
+
+    /**
+     * Creates renderable sprite.
+     * @param isTest if isTest, don't use a texture.
+     * @return renderable sprite object.
+     */
     private Sprite createSprite(boolean isTest){
         Sprite sprite;
         if(isTest){
@@ -39,6 +45,11 @@ public class Ball {
         sprite.setSize(this.ballRadius * 2, this.ballRadius * 2);
         return sprite;
     }
+
+    /**
+     * Creates the circular ball body for the physics simulation
+     * @return circular physics body object.
+     */
     private Body createBody(){
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
@@ -55,8 +66,17 @@ public class Ball {
         ballShape.dispose();
         return ballBody;
     }
+
+    /**
+     * Makes the renderable sprite sync up with the physics engine.
+     * The physics engine is smaller than the renderable screen.
+     */
     public void syncSpriteBody(){
-        sprite.setPosition(body.getPosition().x*simulationScale-10, body.getPosition().y*simulationScale+20);
+        sprite.setPosition(body.getPosition().x*simulationScale-sprite.getWidth()/2, body.getPosition().y*simulationScale-sprite.getHeight()/2);
+//        sprite.setPosition(body.getPosition().x*simulationScale-10, body.getPosition().y*simulationScale+20);
+
+//        sprite.setPosition((float) (body.getPosition().x*(simulationScale-0.5)), body.getPosition().y*(simulationScale+1));
+
     }
 
     /**
@@ -85,6 +105,12 @@ public class Ball {
         }
 
     }
+
+    /**
+     * Checks if single player scored, (hit the right wall)
+     * If they did, make it bounce back by negating x velocity.
+     * @return
+     */
     public boolean didSinglePlayerScore(){
         if(sprite.getX() > Gdx.graphics.getWidth()-sprite.getWidth()){
             body.setLinearVelocity(-Math.abs(body.getLinearVelocity().x), body.getLinearVelocity().y);
@@ -94,7 +120,7 @@ public class Ball {
     }
     /**
      * Checks is the ball has went off the screen,
-     * if the ball went of the screen, the game is over.
+     * if the ball went of the screen, the player lost the singleplayer game.
      */
     public boolean didSinglePlayerLose(){
         if(sprite.getX() < -sprite.getWidth()){
@@ -103,6 +129,10 @@ public class Ball {
         return false;
     }
 
+    /**
+     * Resets ball to random middle position in screen
+     * @param velocityLeft decides if the ball should move left or right.
+     */
     public void resetBall(boolean velocityLeft){
         int direction = 1;
         if(velocityLeft){
@@ -111,21 +141,21 @@ public class Ball {
         body.setTransform(50, (float) (4.00+Math.random()*68), 90);
         body.setLinearVelocity(direction*velocity, velocity/2);
     }
+
     /**
      * Checks is the ball has went off the screen,
      * if the ball went of the screen, someone scored
-     * calls a function if the ai scored or player scored.
+     * @return 1 if right player scored, 2 if left player scored.
      */
     public int checkForGoals(){
-
         if(sprite.getY()<-sprite.getHeight() || sprite.getY()>Gdx.graphics.getHeight()+sprite.getHeight()){
             resetBall(true);
         }
         if(sprite.getX() < -sprite.getWidth()){
-            return 1;//aiScored();
+            return 1;
         }
         if(sprite.getX() > Gdx.graphics.getWidth()+sprite.getWidth()){
-            return 2;//playerScored();
+            return 2;
         }
         return 0;
     }

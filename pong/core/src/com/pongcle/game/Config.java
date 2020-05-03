@@ -12,18 +12,22 @@ import java.util.concurrent.TimeUnit;
 public class Config {
     private int scoreToWin = 3;
     private int difficulty = 1;
-    private String gameMode = "2";
+    private String gameMode = "1";
     private int ballRadius = 20;
     private int paddleWidth = 80;
 
-    Config(){
+    public Config(){
         readConfigFile();
     }
     public void setScoreToWin(int score){
         this.scoreToWin = score;
     }
     public void setGameMode(String gameMode){
-        this.gameMode = gameMode;
+        if(gameMode.equals("1") || gameMode.equals("2") || gameMode.equals("3")){
+            this.gameMode = gameMode;
+        }else{
+            System.out.println("Invalid gamemode, set it to default value");
+        }
     }
     public int getScoreToWin(){
         return this.scoreToWin;

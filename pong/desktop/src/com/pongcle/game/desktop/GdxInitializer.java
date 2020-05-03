@@ -21,7 +21,7 @@ public class GdxInitializer {
 
 
     /**
-     * init the environement, once.
+     * init the environement
      */
     static {
         //init GDX environement to have the methods available
