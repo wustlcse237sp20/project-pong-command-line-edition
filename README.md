@@ -46,6 +46,7 @@ This is a pong game written in Java using the LibGDX game engine. There are 3 ga
 ***3. Iteration 3 - Upcoming***
 - As a player, I want to play a bug free game. (fix physics engine out of sync when massive ball) (Complete)
 - As a player, I want to be warned when I enter an invalid game flag (Complete)
-- As a developer, I want to be able to unit test game objects using a headless version of the game (Complete)
 - As a player, I don't want spammed about tests while I'm playing. (Complete)
+- As a developer, I want to be able to unit test game objects using a headless version of the game (Complete)
+- As a developer, I want smaller classes. (Complete)
 
