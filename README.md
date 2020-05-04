@@ -19,12 +19,11 @@ This is a pong game written in Java using the LibGDX game engine. There are 3 ga
 - **You only need Java to run our game. If, somehow, the script isn't working. Go to 'pong\desktop\build\libs' and run desktop-1.0.jar to launch the game. Running this way will not allow you to enter in config variables like gamemode or difficulty.** 
             
 ## Testing
-- Since our project is a series of games, we cannot fully use Unit Tests. This is because Unit Tests are designed to tests functions once.
-- Our tests need to continously run to ensure things are valid throughout the duration of the game where things are constantly moving around changing values. 
-- Our tests constantly run while you play the game and print out how many tests pass to the command line. 
-- Our DesktopLauncher doesn't have a test because it is LibGDX generated code. We didn't write it. 
-- Prof Shook mentions that UI classes don't need tests, are game is basically all UI but we wrote the tests mentioned above. 
-- *We have JUnit tests for our Config class. This is because it isn't Game Code, so it is JUnit testable.*
+- Unit Test Locations: 
+    - pong\core\src\com\pongcle\game -> ConfigTest
+    - pong\core\src\com\pongcle\screens -> SinglePlayerTest, SinglePlayerVersusAITest, TwoPlayerTest
+    - pong\desktop\src\com\pongcle\game\desktop -> BallTest, PaddleTest (These two test classes are located next to the desktop launcher because they require a headless version of the game to run)
+
 
 ## Iteration / User Stories
 ***1. Iteration 1***
